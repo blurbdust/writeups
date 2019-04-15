@@ -7,7 +7,7 @@
 Everland was a textbased monster killing game. There were a few people looking at this and they figured out `fight` plus `2` or `Recouperate` will heal yourself by 10 and also do 10hp to the monster. I scripted this and then figured out Capturing an enemy at 0hp to Sacrifice to the final boss would lead to the flag. 
 
 ## Solution 
-```
+```python
 #!/usr/env/python
 from pwn import *
 
@@ -50,7 +50,7 @@ Flag: `PCTF{just_be_glad_i_didnt_arm_cpt_hook_with_GADTs}`
     nc canyouguessme.pwni.ng 12349
 
 Looking at the source we figured out we could input any set of characters that is less than or equal to 10. Not 10 total but 10 distinct characters. 
-We chose `print(vars())` as it would print out all the variables, including flag. The of `print(vas)` is exactly 10 and thus was valid. 
+We chose `print(vars())` as it would print out all the variables, including flag. The set of `print(vas)` is exactly 10 and thus was valid. 
 
 ```
 
