@@ -5,6 +5,7 @@
     running at everland.pwni.ng:7772
     
 Everland was a textbased monster killing game. There were a few people looking at this and they figured out `fight` plus `2` or `Recouperate` will heal yourself by 10 and also do 10hp to the monster. I scripted this and then figured out Capturing an enemy at 0hp to Sacrifice to the final boss would lead to the flag. 
+
 ## Solution 
 ```
 #!/usr/env/python
@@ -36,7 +37,7 @@ for i in range(0, 81):
 
 r.interactive()
 ```
-This script gets you to the last turn with a normal enemy before making it to the boss. This is where I woudl use the rest of the items and then `fight` and `4` or `Capture` the enemy. You then move onto the boss and this is wherre you `fight` and `6` or `Sacrifice` and then you kill the Possesed monster and get the flag. The full log is in this repo. 
+This script gets you to the last turn with a normal enemy before making it to the boss. This is where I would use the rest of the items and then `fight` and `4` or `Capture` the enemy. You then move onto the boss and this is where you `fight` and `6` or `Sacrifice` and then you kill the Possessed monster and get the flag. The full log is in this repo. 
 
 Flag: `PCTF{just_be_glad_i_didnt_arm_cpt_hook_with_GADTs}`
 
@@ -69,3 +70,4 @@ Nope. Better luck next time.
 
 Flag: `PCTF{hmm_so_you_were_Able_2_g0lf_it_down?_Here_have_a_flag}`
 
+I played for my school's team this time instead of going it alone. IASG was in 3rd for a bit however we all got distracted by homework and didn't score past Friday night leaving us in 136th at the end.
