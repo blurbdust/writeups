@@ -17,7 +17,7 @@ Flag: `secdsm{p4ssw0rd}`
     Find the flag in the pcap.
     https://drive.google.com/open?id=1P7tcXmKc0DqpBDRt1LyiWhRPfpld0MlB
 
-This was an odd series. The same pcap was used accross different challenges and the challenge name helped distiguish which challenge you solved for which flag.
+This was an odd series. The same pcap was used across different challenges and the challenge name helped distinguish which challenge you solved for which flag.
 We got the flags from the pcacps and then submitted them to each of the challenges to see which flag went where. For this one I chose a tcp stream to follow in Wireshark and then in the bottom right hand corner, I went through all of the streams until I got to a FTP login where the password was the flag.
 
 ```
@@ -60,7 +60,7 @@ Flag: `SecDSM{KPp6GHevN9}`
     Find the flag in the pcap.
     https://drive.google.com/open?id=1WTLG1R_RDxwXoVhgkbi8x16BBWg4dde_
 
-This one is also from the series of pcacps. I followed a TCP stream again and then tcp stream 0 is a suspiciously similar to morsecode.
+This one is also from the series of pcacps. I followed a TCP stream again and then tcp stream 0 is a suspiciously similar to morse code.
 
 Using https://morsecode.scphillips.com/translator.html it is in fact morse code.
 
@@ -143,7 +143,7 @@ Flag: `secdsm{RockYou_password_encryption_did_not_rock}`
     Find the flag in the pcap.
     https://drive.google.com/open?id=1VDkJjGTR13RVtiXXJ2NnN-hlGRoXKq82
 
-Back to the pcaps, we open this one up and do the same tcp strea, following. This leads to noticing there is SMB traffic and a reference to SMB carving in Wireshark. I Exported the Objects for SMB traffic and there was `flog.txt` and a zip file! This was encrypted so using `zip2john` gives the hash of 
+Back to the pcaps, we open this one up and do the same tcp stream, following. This leads to noticing there is SMB traffic and a reference to SMB carving in Wireshark. I Exported the Objects for SMB traffic and there was `flog.txt` and a zip file! This was encrypted so using `zip2john` gives the hash of 
 ```
 tmp.zip:$zip2$*0*3*0*7bbdccf5cd8e8ec98f1d8a5cd24b1a53*33cf*13*d97d95396f8894aa92917a0bad8e67d76276f1*924f9d21299d000492fb*$/zip2$:::::tmp.zip-wavy/flag.txt
 ```
@@ -158,14 +158,14 @@ Flag: `SecDSM{ZftGfXOjxi}`
     Do socat servers dream of python sheep?
     nc 206.189.224.72 5123
 
-Ok this one was fun. I also only did this one of the series which was a continuation on Scripting 1 and Scripting 2. Using `nc` to connect to the server you get promtped to answer a math question. 
+Ok this one was fun. I also only did this one of the series which was a continuation on Scripting 1 and Scripting 2. Using `nc` to connect to the server you get prompted to answer a math question. 
 
 ```
 [blurbdust@X1C]: ~/Documents/B.Sides.19/lego>$ nc 206.189.224.72 5123
 75 / 88 = ?: 
 ```
 
-After solving it you get another, and another, and another. They keep going for 24 times. Scripting 1 ended here. Scripting 2 went for an additional 20ish but also chnaged the operator `+-/*%` to words. Spliting on spaces and checking for `mod`, `plus`, `times`, and `divided` was our solution. Scripting 3 took the nummbers and also turned those into words so `42 + 42 = ?` went to `fourty two plus fourty two = ?`. We tracked down a python library called `word2number` which could handle this conversion easily for us. After adding this in, the script still broke! The evil makers of this challenge decided they will now randomly throw the previous Scripting 1 and 2 formats back in so we have to handle these after the initial 24 and 20ish. This worked and we finalyl got the flag. The full script is below. 
+After solving it you get another, and another, and another. They keep going for 24 times. Scripting 1 ended here. Scripting 2 went for an additional 20ish but also changed the operator `+-/*%` to words. Spliting on spaces and checking for `mod`, `plus`, `times`, and `divided` was our solution. Scripting 3 took the numbers and also turned those into words so `42 + 42 = ?` went to `fourty two plus fourty two = ?`. We tracked down a python library called `word2number` which could handle this conversion easily for us. After adding this in, the script still broke! The evil makers of this challenge decided they will now randomly throw the previous Scripting 1 and 2 formats back in so we have to handle these after the initial 24 and 20ish. This worked and we finalyl got the flag. The full script is below. 
 Script TL;DR: I split on spaces, try to use the library to check if it's the new stage or old stage. If old stage, check if the `len(split_data[1]) < 2` to check if it's single character (`+`,`-`,`*`,`/`,`%`), if so then eval. Else replace the word with the symbol and eval. 
 
 ```python
@@ -309,7 +309,7 @@ blurbdust@X1C]: ~/Documents/B.Sides.19/rsa>$ python2.7 ~/tools/RsaCtfTool/RsaCtf
 Flag: `secdsm{beonyourps&qs}`
 
 # Reconstruction
-### 400
+### 450
 
     Description:
     Files available at http://bit.ly/2UurWw3 modulus:
@@ -353,7 +353,7 @@ Flag: `secdsm{beonyourps&qs}`
 So we are given primes, a modulus, and an exponent. It sounds like RSA again!
 We are given two files, `enc_key.enc` and `flag.enc`. I'm guessing we need to decrypt the key first and then do something else to decrypt the flag. 
 
-RsaCtfTool can recreate a RSA key from the numbers that make up the key. That sounds like exactly what we need to do. can either do hex or decimal for the recreation. I like to use decimal so I used python to conver them. Save the numbers as strings, remove the `:`, the new lines, and then `print(int(num, 16))`. Then take those numbers and use it with RsaCtfTool's `--createpub`.
+RsaCtfTool can recreate a RSA key from the numbers that make up the key. That sounds like exactly what we need to do. can either do hex or decimal for the recreation. I like to use decimal so I used python to convert them. Save the numbers as strings, remove the `:`, the new lines, and then `print(int(num, 16))`. Then take those numbers and use it with RsaCtfTool's `--createpub`.
 
 ```
 [blurbdust@X1C]: ~/Documents/B.Sides.19/reconstruction>$ python2.7 ~/tools/RsaCtfTool/RsaCtfTool.py --createpub -n 153417658035385267201603663701555060309113239092246784524632389918822299006317847021185056350551962482372979892829792285582460538571341886594717300718316849082378528321848961256305260150340512082309069043621723469564598541882175214196623792955206212920692949684291862065750365144190626093259936448445115356019 -e 65537
