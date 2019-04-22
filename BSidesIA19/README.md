@@ -8,6 +8,7 @@
 
 This one was pretty easy, as it was only 50 points. 
 https://hashes.org/search.php returns `2a9d119df47ff993b662a8ef36f9ea20:p4ssw0rd`.
+
 Flag: `secdsm{p4ssw0rd}`
 
 # 114
